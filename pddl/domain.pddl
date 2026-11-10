@@ -1,7 +1,7 @@
 (define (domain building)
     (:requirements :strips :typing)
 
-    (:types room item gripper table person)
+    (:types room item gripper table person door)
 
     (:predicates
     (robot-at ?r - room)
@@ -13,6 +13,8 @@
     (on-table ?o - item ?t - table)
     (person-at ?p - person ?r - room)
     (delivered-to ?o - item ?p - person)
+    (door-between ?d - door ?from ?to - room)
+    (door-closed ?d - door)
     )
 
     (:action move
@@ -73,6 +75,24 @@
             (delivered-to ?o ?p)
             (gripper-free ?g)
             (not (holding ?o ?g))
+        )
+    )
+
+
+    (:action open-door
+        :parameters
+            (?d - door ?from ?to - room)
+
+        :precondition(and
+            (robot-at ?from)
+            (door-between ?d ?from ?to)
+            (door-closed ?d)
+        )
+
+        :effect(and
+            (not (door-closed ?d))
+            (connected ?from ?to)
+            (connected ?to ?from)
         )
     )
 

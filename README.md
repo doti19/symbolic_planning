@@ -27,7 +27,8 @@ symbolic-planning/
 │       ├── object-delivery.pddl
 │       ├── two-object-transport.pddl
 │       ├── gripper-capacity-test.pddl
-│       └── human-handover.pddl
+│       ├── human-handover.pddl
+│       └── door-navigation.pddl
 └── README.md
 ```
 
@@ -117,6 +118,18 @@ and handing over the book.
 python3 fast-downward.py \
   symbolic-planning/pddl/domain.pddl \
   symbolic-planning/pddl/problems/human-handover.pddl \
+  --search "astar(lmcut())"
+```
+
+### Door navigation
+
+This problem models the robot opening a closed door before moving from the
+office to the meeting room.
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain.pddl \
+  symbolic-planning/pddl/problems/door-navigation.pddl \
   --search "astar(lmcut())"
 ```
 
