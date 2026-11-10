@@ -26,7 +26,8 @@ symbolic-planning/
 │       ├── navigation.pddl
 │       ├── object-delivery.pddl
 │       ├── two-object-transport.pddl
-│       └── gripper-capacity-test.pddl
+│       ├── gripper-capacity-test.pddl
+│       └── human-handover.pddl
 └── README.md
 ```
 
@@ -104,6 +105,18 @@ python3 fast-downward.py \
 python3 fast-downward.py \
   symbolic-planning/pddl/domain.pddl \
   symbolic-planning/pddl/problems/two-object-transport.pddl \
+  --search "astar(lmcut())"
+```
+
+### Human handover
+
+This problem models the robot picking up a book, navigating to a professor,
+and handing over the book.
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain.pddl \
+  symbolic-planning/pddl/problems/human-handover.pddl \
   --search "astar(lmcut())"
 ```
 
