@@ -28,7 +28,8 @@ symbolic-planning/
 │       ├── two-object-transport.pddl
 │       ├── gripper-capacity-test.pddl
 │       ├── human-handover.pddl
-│       └── door-navigation.pddl
+│       ├── door-navigation.pddl
+│       └── cabinet-retrieval.pddl
 └── README.md
 ```
 
@@ -130,6 +131,18 @@ office to the meeting room.
 python3 fast-downward.py \
   symbolic-planning/pddl/domain.pddl \
   symbolic-planning/pddl/problems/door-navigation.pddl \
+  --search "astar(lmcut())"
+```
+
+### Cabinet retrieval
+
+This problem models the robot navigating to the office, opening a cabinet,
+retrieving a book, and delivering it to the meeting-room table.
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain.pddl \
+  symbolic-planning/pddl/problems/cabinet-retrieval.pddl \
   --search "astar(lmcut())"
 ```
 
