@@ -1,0 +1,131 @@
+; The room artwork defines a schematic map. Room anchors and slot offsets
+; below are visual coordinates. The planner continues to use symbolic rooms.
+(:predicate robot-at
+  :parameters (?room)
+  :custom robot
+  :effect (
+    (equal (robot x) (add (?room x) (?room robotx) -80))
+    (equal (robot y) (add (?room y) (?room roboty) -66))
+  )
+)
+
+; Each item keeps the same sprite identity, size and depth as its position
+; changes. This lets the player interpolate pick-up, travel and delivery.
+(:predicate item-at
+  :parameters (?item ?room)
+  :effect (
+    (equal (?item prefabimage) (?item itemimage))
+    (equal (?item x) (add (?room x) (?room itemx) (?item loosex)))
+    (equal (?item y) (add (?room y) (?room itemy) (?item loosey)))
+  )
+)
+
+(:predicate holding
+  :parameters (?item ?gripper)
+  :custom robot
+  :effect (
+    (equal (?item prefabimage) (?item itemimage))
+    (equal (?item x) (add (robot x) (?gripper gripx)))
+    (equal (?item y) (add (robot y) 20))
+  )
+)
+
+; Furniture resolves its room-relative anchor before item placement rules.
+(:predicate table-at
+  :parameters (?table ?room)
+  :priority 0
+  :effect (
+    (equal (?table prefabimage) img-table)
+    (equal (?table width) 184)
+    (equal (?table height) 94)
+    (equal (?table depth) 2)
+    (equal (?table x) (add (?room x) (?room tablex)))
+    (equal (?table y) (add (?room y) (?room tabley)))
+  )
+)
+
+(:predicate on-table
+  :parameters (?item ?table)
+  :effect (
+    (equal (?item prefabimage) (?item itemimage))
+    (equal (?item x) (add (?table x) (?item slot) 12))
+    (equal (?item y) (add (?table y) 9))
+  )
+)
+
+(:predicate person-at
+  :parameters (?person ?room)
+  :priority 0
+  :effect (
+    (equal (?person prefabimage) (?person personimage))
+    (equal (?person width) 184)
+    (equal (?person height) 120)
+    (equal (?person depth) 2)
+    (equal (?person x) (add (?room x) (?room personx)))
+    (equal (?person y) (add (?room y) (?room persony)))
+  )
+)
+
+(:predicate delivered-to
+  :parameters (?item ?person)
+  :effect (
+    (equal (?item prefabimage) (?item itemimage))
+    (equal (?item x) (add (?person x) (?item slot) 12))
+    (equal (?item y) (add (?person y) 9))
+  )
+)
+
+; The cabinet front is drawn above the contents. The open front has a
+; transparent shelf so the same item sprite shows through when opened.
+(:predicate cabinet-at
+  :parameters (?cabinet ?room)
+  :priority 0
+  :effect (
+    (equal (?cabinet prefabimage) img-cabinet-closed)
+    (equal (?cabinet width) 184)
+    (equal (?cabinet height) 116)
+    (equal (?cabinet depth) 6)
+    (equal (?cabinet x) (add (?room x) (?room cabinetx)))
+    (equal (?cabinet y) (add (?room y) (?room cabinety)))
+  )
+)
+
+(:predicate cabinet-open
+  :parameters (?cabinet)
+  :priority 1
+  :effect (
+    (equal (?cabinet prefabimage) img-cabinet-open)
+  )
+)
+
+(:predicate in-cabinet
+  :parameters (?item ?cabinet)
+  :effect (
+    (equal (?item prefabimage) (?item itemimage))
+    (equal (?item x) (add (?cabinet x) (?item slot) 12))
+    (equal (?item y) (add (?cabinet y) 13))
+  )
+)
+
+; The half coordinates add to the midpoint of the two room stops.
+; Reversing the two room arguments gives the same door position.
+(:predicate door-between
+  :parameters (?door ?from ?to)
+  :priority 0
+  :effect (
+    (equal (?door prefabimage) img-door-open)
+    (equal (?door width) 184)
+    (equal (?door height) 68)
+    (equal (?door depth) 3)
+    (equal (?door x) (add (?from doorx) (?to doorx) -92))
+    (equal (?door y) (add (?from doory) (?to doory) -34))
+  )
+)
+
+(:predicate door-closed
+  :parameters (?door)
+  :priority 1
+  :effect (
+    (equal (?door prefabimage) img-door-closed)
+  )
+)

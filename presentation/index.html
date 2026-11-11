@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121b27">
+  <title>Planimation VFG Player</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="player.mjs"></script>
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon" aria-hidden="true"></span> VFG Player</div>
+      <span id="present-title"></span>
+      <div class="files">
+        <select id="demo" aria-label="Select a demo">
+          <option value="cabinet-retrieval">Cabinet Retrieval</option>
+          <option value="two-object-transport">Two-Object Transport</option>
+          <option value="local" hidden>Local VFG</option>
+        </select>
+        <button id="open" type="button">Open VFG</button>
+        <input id="file" type="file" accept=".vfg,.json,application/json" hidden>
+      </div>
+      <div class="tools">
+        <p id="status" role="status"></p>
+        <button id="export" type="button" disabled>Export video</button>
+        <button id="present" type="button" aria-pressed="false" disabled>Present</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="viewer" aria-label="Animation">
+        <div class="stage">
+          <canvas id="map" role="img" aria-label="Planimation floor plan"></canvas>
+        </div>
+        <div class="transport">
+          <div class="timeline">
+            <output id="step-count" for="seek">Step 0 / 0</output>
+            <input id="seek" aria-label="Plan step" type="range" min="0" max="0" value="0" disabled>
+            <span id="stage-goal" class="badge" role="status">Loading</span>
+          </div>
+          <div class="transport-controls">
+            <button id="previous" type="button" aria-label="Previous step" disabled>Previous</button>
+            <button id="play" type="button" class="play" disabled>Play</button>
+            <button id="next" type="button" aria-label="Next step" disabled>Next</button>
+            <label class="speed">Speed
+              <select id="speed" aria-label="Playback speed">
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.5">1.5×</option>
+                <option value="2">2×</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <aside class="inspector" aria-label="Plan details">
+        <div class="scenario">
+          <h1 id="scenario">Loading animation</h1>
+        </div>
+        <section class="goals" aria-labelledby="goal-heading">
+          <h2 id="goal-heading">Goal</h2>
+          <ul id="goal-list"></ul>
+        </section>
+        <nav class="steps" aria-labelledby="steps-heading">
+          <h2 id="steps-heading">Steps</h2>
+          <ol id="steps"></ol>
+        </nav>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>
