@@ -22,6 +22,8 @@ number of actions.
 symbolic-planning/
 ├── pddl/
 │   ├── domain.pddl
+│   ├── animations/
+│   │   └── symbolic_planning_AP.pddl
 │   └── problems/
 │       ├── navigation.pddl
 │       ├── object-delivery.pddl
@@ -36,6 +38,13 @@ symbolic-planning/
 The project is currently stored inside a Fast Downward checkout. The
 `fast-downward.py` driver and `build.py` script are therefore one directory
 above this folder.
+
+## Planimation
+
+The [standalone animation profile](pddl/animations/symbolic_planning_AP.pddl)
+turns a building plan into a 2D floor plan. See the
+[Planimation guide](pddl/animations/README.md) for upload steps, the editable
+sprite source, and validation frames for the seminar demos.
 
 ## Prerequisites
 
