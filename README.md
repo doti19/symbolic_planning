@@ -46,6 +46,9 @@ turns a building plan into a 2D floor plan. See the
 [Planimation guide](pddl/animations/README.md) for upload steps, the editable
 sprite source, and validation frames for the seminar demos.
 
+For the seminar, the [local VFG player](presentation/README.md) displays
+Planimation-generated plans on a larger canvas and exports video clips.
+
 ## Prerequisites
 
 - Python 3
