@@ -38,7 +38,11 @@ symbolic-planning/
 │       ├── eight-room-unit.pddl
 │       ├── eight-room-weighted.pddl
 │       ├── door-detour-unit.pddl
-│       └── door-detour-weighted.pddl
+│       ├── door-detour-weighted.pddl
+│       ├── object-retrieval-unit.pddl
+│       ├── object-retrieval-weighted.pddl
+│       ├── two-object-retrieval-unit.pddl
+│       └── two-object-retrieval-weighted.pddl
 └── README.md
 ```
 
@@ -220,6 +224,42 @@ python3 fast-downward.py \
 python3 fast-downward.py \
   symbolic-planning/pddl/domain-costs.pddl \
   symbolic-planning/pddl/problems/door-detour-weighted.pddl \
+  --search "astar(lmcut())"
+```
+
+### Object retrieval
+
+These problems model retrieving a book from the storage room and handing it
+to the professor at the entrance. The unit and weighted versions use the
+same task with different movement and door-opening costs:
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/object-retrieval-unit.pddl \
+  --search "astar(lmcut())"
+
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/object-retrieval-weighted.pddl \
+  --search "astar(lmcut())"
+```
+
+### Two-object retrieval
+
+These problems extend object retrieval to a book in storage and a laptop in
+the office. The robot uses its two grippers to deliver both objects to the
+professor:
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/two-object-retrieval-unit.pddl \
+  --search "astar(lmcut())"
+
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/two-object-retrieval-weighted.pddl \
   --search "astar(lmcut())"
 ```
 
