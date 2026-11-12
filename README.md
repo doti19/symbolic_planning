@@ -22,6 +22,7 @@ number of actions.
 symbolic-planning/
 ├── pddl/
 │   ├── domain.pddl
+│   ├── domain-costs.pddl
 │   ├── animations/
 │   │   └── symbolic_planning_AP.pddl
 │   └── problems/
@@ -31,7 +32,13 @@ symbolic-planning/
 │       ├── gripper-capacity-test.pddl
 │       ├── human-handover.pddl
 │       ├── door-navigation.pddl
-│       └── cabinet-retrieval.pddl
+│       ├── cabinet-retrieval.pddl
+│       ├── cost-nav-unit.pddl
+│       ├── cost-nav-weighted.pddl
+│       ├── eight-room-unit.pddl
+│       ├── eight-room-weighted.pddl
+│       ├── door-detour-unit.pddl
+│       └── door-detour-weighted.pddl
 └── README.md
 ```
 
@@ -155,6 +162,64 @@ retrieving a book, and delivering it to the meeting-room table.
 python3 fast-downward.py \
   symbolic-planning/pddl/domain.pddl \
   symbolic-planning/pddl/problems/cabinet-retrieval.pddl \
+  --search "astar(lmcut())"
+```
+
+### Action-cost navigation
+
+The `domain-costs.pddl` domain assigns costs to movement and manipulation
+actions. The navigation pair compares a short route with an expensive
+longer route:
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/cost-nav-unit.pddl \
+  --search "astar(lmcut())"
+
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/cost-nav-weighted.pddl \
+  --search "astar(lmcut())"
+```
+
+The unit version gives every movement the same cost. The weighted version
+uses distances that make the longer route through the hallway and office
+cheaper than the direct route through the lab.
+
+### Eight-room navigation
+
+These problems extend the building with a library, classroom, and storage
+room. They provide unit-cost and weighted-cost versions of the same
+navigation task:
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/eight-room-unit.pddl \
+  --search "astar(lmcut())"
+
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/eight-room-weighted.pddl \
+  --search "astar(lmcut())"
+```
+
+### Door detour
+
+These problems add a closed service door that provides a direct shortcut to
+the storage room. The weighted version makes opening the door expensive,
+allowing comparison between the shortcut and the existing detour:
+
+```bash
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/door-detour-unit.pddl \
+  --search "astar(lmcut())"
+
+python3 fast-downward.py \
+  symbolic-planning/pddl/domain-costs.pddl \
+  symbolic-planning/pddl/problems/door-detour-weighted.pddl \
   --search "astar(lmcut())"
 ```
 
