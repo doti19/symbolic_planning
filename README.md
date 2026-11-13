@@ -272,31 +272,16 @@ The same commands can be run from this directory by replacing
 
 ## Comparing action costs and plan length
 
-The baseline planner minimizes the total cost of the actions as represented by
-the task. For the Team 1 experiments, we will add PDDL action costs (for
-example, different movement costs for different distances) and compare them
-with unit-cost planning.
-
-A unit-cost comparison can be run with:
+From the repository root, run the five paired Team 1 experiments and write
+their measurements to CSV:
 
 ```bash
-python3 fast-downward.py \
-  symbolic-planning/pddl/domain.pddl \
-  symbolic-planning/pddl/problems/object-delivery.pddl \
-  --search "astar(lmcut(), cost_type=one)"
+python3 experiments/benchmark.py --fd ../fast-downward.py
 ```
 
-For each experiment, record at least:
-
-- whether a plan was found;
-- plan length (number of actions);
-- total plan cost;
-- runtime;
-- search effort, such as expanded and generated states;
-- whether the planner terminated successfully.
-
-The cost-aware and unit-cost versions should be tested on the same problem
-instances so that their plans and performance can be compared fairly.
+The benchmark uses the same search for both objectives and evaluates both
+plans under the weighted cost model. The [benchmark guide](experiments/README.md)
+explains the scenario options, CSV columns, and cost calculation.
 
 ## Optional PDDL tools
 
